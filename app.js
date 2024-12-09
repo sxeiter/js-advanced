@@ -1,37 +1,28 @@
 'use strict';
 
-function Character(race, name, language) {
-    this.race = race;
-    this.name = name;
-    this.language = language;
+class Car {
+    constructor(make, model, run) {
+        this._make = make;
+        this._model = model;
+        this._run = run;
+    }
+
+    get run() {
+        return this._run;
+    }
+
+    set run(value) {
+        if (value >= 0) {
+            this._run = value;
+        } else {
+            console.log('Нет пробега')
+        }
+    }
+
+    info() {
+        console.log(`Автомобиль ${this._make} ${this._model} c пробегом ${this._run} километров`)
+    } 
 }
 
-Character.prototype.speak = function() {
-    console.log(`${this.language}: ${this.name}`);
-};
-
-function Orc(name, language, weapon) {
-    Character.call(this, 'Орк', name, language);
-    this.weapon = weapon;
-}
-
-Orc.prototype = Object.create(Character.prototype);
-Orc.prototype.constructor = Orc;
-
-Orc.prototype.hit = function() {
-    console.log(`${this.name} наносит удар с оружием ${this.weapon}!`);
-};
-
-Orc.prototype.castSpell = function() {
-    console.log(`${this.name} использует заклинание!`);
-};
-
-Orc.prototype.createSpell = function(spellName) {
-    console.log(`${this.name} создает заклинание: ${spellName}`);
-};
-
-const orc1 = new Orc('Грог', 'Оркский', 'Топор');
-orc1.speak();
-orc1.hit();
-orc1.castSpell();
-orc1.createSpell('Огненный шар');
+const car = new Car('BWM', 'X5 M Compitition', 140000);
+console.log(car.info())
