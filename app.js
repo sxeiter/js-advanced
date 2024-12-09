@@ -26,3 +26,7 @@ class Car {
 
 const car = new Car('BWM', 'X5 M Compitition', 140000);
 console.log(car.info())
+
+car.run = 43232;
+console.log(car._run)
+console.log(car.info())
