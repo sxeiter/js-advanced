@@ -1,32 +1,27 @@
 'use strict';
 
-class Car {
-    constructor(make, model, run) {
-        this._make = make;
-        this._model = model;
-        this._run = run;
-    }
+const newYearDate = new Date('January 1, 2025 00:00:00').getTime();
 
-    get run() {
-        return this._run;
-    }
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = newYearDate - now;
 
-    set run(value) {
-        if (value >= 0) {
-            this._run = value;
-        } else {
-            console.log('Нет пробега')
-        }
-    }
+    const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30));
+    const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    info() {
-        console.log(`Автомобиль ${this._make} ${this._model} c пробегом ${this._run} километров`)
-    } 
+    const countdownString = `${months} месяцев, ${days} дней, ${hours} часов, ${minutes} минут, ${seconds} секунд`;
+
+    document.getElementById("countdown").innerText = countdownString;
+
+    if (distance < 0) {
+        clearInterval(interval);
+        document.getElementById("countdown").innerText = "С Новым Годом!";
+    }
 }
 
-const car = new Car('BWM', 'X5 M Compitition', 140000);
-console.log(car.info())
+const interval = setInterval(updateCountdown, 1000);
 
-car.run = 43232;
-console.log(car._run)
-console.log(car.info())
+updateCountdown();
