@@ -1,27 +1,62 @@
 'use strict';
 
-const newYearDate = new Date('January 1, 2025 00:00:00').getTime();
+// class Book {
+//     constructor(title, author) {
+//         this.title = title;
+//         this.author = author;
+//     }
 
-function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = newYearDate - now;
+//     buy() {
+//         console.log('buy')
+//     }
+// }
 
-    const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30));
-    const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+// class AudioBook extends Book {
+//     constructor(title, author, lenMin) {
+//         super(title, author);
+//         this.lenMin = lenMin;
+//     }
 
-    const countdownString = `${months} месяцев, ${days} дней, ${hours} часов, ${minutes} минут, ${seconds} секунд`;
+//     log() {
+//         console.log(`${this.title} - ${this.lenMin}`)
+//     }
+// }
 
-    document.getElementById("countdown").innerText = countdownString;
+// const aub = new AudioBook('asdasdf', 'sdfgsdf111', 120);
+// console.log(aub.buy());
 
-    if (distance < 0) {
-        clearInterval(interval);
-        document.getElementById("countdown").innerText = "С Новым Годом!";
+class Enemy {
+    health;
+    constructor(health) {
+        this.health = health;
+    }
+
+    recieveDamage(damage) {
+        this.health = this.health - damage;
+        console.log(this.health)
     }
 }
 
-const interval = setInterval(updateCountdown, 1000);
+class Sword {
+    #damage;
+    constructor(damage) {
+        this.#damage = damage;
+    }
 
-updateCountdown();
+    strike(enemy) {
+        enemy.recieveDamage(this.#damage);
+    }
+}
+
+class Ork extends Enemy {
+    constructor(health) {
+        super(health);
+    }
+
+    recieveDamage(damage) {
+        if (Math.random() > 0.5) {
+            this.health = this.health - damage;
+        }
+        console.log(this.health)
+    }
+}
