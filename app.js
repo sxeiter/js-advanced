@@ -1,1 +1,6 @@
 'use strict';
+
+class Book {
+    
+
+}
