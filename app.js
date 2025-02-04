@@ -1,43 +1,46 @@
 'use strict';
 
-class Billing {
-    constructor(amount) {
-        this.amount = amount;
-    }
-
-    calculateTotal() {
-        throw new Error("Метод calculateTotal должен быть переопределен в подклассе");
-    }
+function getPokemonData(pokemonName, callback) {
+    const request = new XMLHttpRequest();
+    request.open('GET', `https://pokeapi.co/api/v2/pokemon/${pokemonName}`, true);
+    request.onload = function () {
+        if (request.status >= 200 && request.status < 300) {
+            const data = JSON.parse(request.responseText);
+            callback(null, data);
+        } else {
+            callback(`Ошибка: ${request.status}`);
+        }
+    };
+    request.onerror = function () {
+        callback('Ошибка сети');
+    };
+    request.send();
 }
 
-class FixedBilling extends Billing {
-    constructor(amount) {
-        super(amount);
-    }
-
-    calculateTotal() {
-        return this.amount;
-    }
+function getAbilityData(abilityUrl) {
+    const request = new XMLHttpRequest();
+    request.open('GET', abilityUrl, true);
+    request.onload = function () {
+        if (request.status >= 200 && request.status < 300) {
+            const abilityData = JSON.parse(request.responseText);
+            console.log('Информация о способности:', abilityData);
+        } else {
+            console.error(`Ошибка: ${request.status}`);
+        }
+    };
+    request.onerror = function () {
+        console.error('Ошибка сети');
+    };
 }
 
-class HourBilling extends Billing {
-    constructor(amount, hours) {
-        super(amount);
-        this.hours = hours;
-    }
+getPokemonData('ditto', function (error, data) {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(data);
+        const abilityUrl = data.abilities[0].ability.url;
+        console.log('URL способности:', abilityUrl);
 
-    calculateTotal() {
-        return this.amount * this.hours;
+        getAbilityData(abilityUrl);
     }
-}
-
-class ItemBilling extends Billing {
-    constructor(amount, items) {
-        super(amount);
-        this.items = items;
-    }
-
-    calculateTotal() {
-        return this.amount * this.items;
-    }
-}
+});
