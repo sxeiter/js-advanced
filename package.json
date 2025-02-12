@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "liveserver": "^0.1.20"
+  },
+  "name": "homework",
+  "version": "1.0.0",
+  "description": "my-homework",
+  "main": "index.js",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "rollup": "^4.34.6"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "start": "live-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxeiter/js-advanced.git"
+  },
+  "keywords": [
+    "homework"
+  ],
+  "author": "Pavel Baksheev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sxeiter/js-advanced/issues"
+  },
+  "homepage": "https://github.com/sxeiter/js-advanced#readme"
+}
