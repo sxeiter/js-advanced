@@ -1,0 +1,25 @@
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+.button {
+    width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.button:active {
+    background-color: #45a049;
+}
+#counter {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #45a049;
+}
